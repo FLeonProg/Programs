@@ -1,1 +1,1 @@
-# Progect 0: Guess the number
+# Project 0: Guess the number
