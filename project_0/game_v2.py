@@ -1,5 +1,5 @@
 import numpy as np
-
+import math 
 def random_predict(number:int=1) -> int:
     """Рандомно угадываем число
 
@@ -11,12 +11,23 @@ def random_predict(number:int=1) -> int:
     """
 
     count = 0
+    x_1 = 1
+    x_2 = 100
+    x = math.floor((x_1 + x_2)/2) # предполагаемое число
 
     while True:
         count += 1
-        predict_number = np.random.randint(1, 101) # предполагаемое число
-        if number == predict_number:
-            break # выход из цикла, если угадали
+        if (x == number):
+            break  # выход из цикла, если угадали
+        if (x > number):
+            x_2 = math.ceil(((x_1 + x_2)/2))
+            x = math.floor((x_1 + x_2)/2)
+        else:
+            x_1 = math.floor((x_1 + x_2)/2) 
+            x = math.ceil((x_1 + x_2)/2)
+        if (count > 100):
+            break
+
     return(count)
 
 def score_game(random_predict) -> int:
@@ -31,7 +42,7 @@ def score_game(random_predict) -> int:
 
     count_ls = [] # список для сохранения количества попыток
     np.random.seed(1) # фиксируем сид для воспроизводимости
-    random_array = np.random.randint(1, 101, size=(1000)) # загадали список чисел
+    random_array = np.random.randint(1, 101, size=(100)) # загадали список чисел
 
     for number in random_array:
         count_ls.append(random_predict(number))
